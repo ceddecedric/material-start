@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //config
 app.use(express.static('app'));
-mongoose.connect('mongodb://localhost/book_phone');
+mongoose.connect('mongodb://localhost/qwirk_db');
 
 //import models
 models = require('./app/src/models');

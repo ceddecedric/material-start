@@ -1,18 +1,19 @@
 var users = require('../schema/users');
 var invitationTemps = require('../schema/invitationsTemp');
+var avoirAmis = require('../schema/avoirAmis');
+var groupes = require('../schema/groupe');
+var membreDes = require('../schema/membreDe');
+var messageGroupes = require('../schema/messagesGroupe');
+var messagePrive = require ('../schema/messagesPrive');
+var channels = require('../schema/channels');
+var membreChannels = require('../schema/membreChannels');
 
 exports.User = mongoose.model('Users', users.schemaUsers);
 exports.InvitationTemp = mongoose.model('InvitationTemps', invitationTemps.schemaInvitationtemps);
-
-var avoirAmis = require('../schema/avoirAmis')
 exports.AvoirAmi = mongoose.model('AvoirAmis', avoirAmis.schemaAvoirAmis);
-
-var messagePrive = require ('../schema/messagesPrive');
+exports.Groupe = mongoose.model('Groupes', groupes.schemaGroupes);
+exports.MembreDe = mongoose.model('MembreDes', membreDes.schemaMembreDes);
+exports.MessageGroupes = mongoose.model('MessageGroupes', messageGroupes.schemaMessagesGroupes);
 exports.MessagePrive = mongoose.model('MessagesPrive', messagePrive.schemaMessagesPrive);
-
-var channels = require('../schema/channels');
 exports.Channels = mongoose.model('Channels', channels.schemaChannels);
-
-var membreChannels = require('../schema/membreChannels');
 exports.MembreChannels = mongoose.model('MembreChannels', membreChannels.schemaMembreChannels);
-
