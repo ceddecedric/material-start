@@ -6,4 +6,3 @@ exports.Invitation_temp = mongoose.model('Invitations_temp', invitations_temp.sc
 
 var avoirAmis = require('../schema/avoirAmis')
 exports.AvoirAmi = mongoose.model('AvoirAmis', avoirAmis.schemaAvoirAmis);
-
