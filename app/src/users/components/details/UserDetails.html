@@ -2,32 +2,38 @@
 <h2>{{$ctrl.selected.name}}</h2>
 <p>{{$ctrl.selected.content}}</p>
 
-<!-- <md-button class="md-fab md-fab-bottom-right" ng-click="$ctrl.share($event)" aria-label="Share">
+<md-button class="md-fab md-fab-bottom-right" ng-click="$ctrl.share($event)" aria-label="Share">
   <md-icon md-svg-icon="share" ></md-icon>
-</md-button> -->
-
-<md-button class="md-fab md-fab-bottom-right" ng-click="$ctrl.mail($event)" aria-label="Mail">
-  <md-icon md-svg-icon="mail" ></md-icon>
 </md-button>
 
-<md-div ng-controller="AppCtrl" layout="column" >
-  <md-content layout-padding>
-    <form title="Message" name="message">
-      <div layout="row" layout-xs="column" layout-sm="column" layout-align="space-between center">
-        <div layout-gt-sm="row">
-
-       <md-input-container class="md-block" flex-gt-sm>
-         <label>Message</label>
-         <input md-maxlength="500" required name="message" />
-         <div class="hint" ng-if="showHints">Tell me something</div>
-       </md-input-container>
-
-       <div flex="50" hide-xs hide-sm>
-         <!-- Spacer //-->
-       </div>
-
+<div>
+  <ul id="messages"></ul>
+    <form action="" title="Tell me something" name="message">
+      <div>
+         <md-input-container>
+           <label></label>
+           <!-- <input type='text' required name="message"/> -->
+           <input id="m" rows="1" cols="500" required autocomplete="off"/>
+           <!-- <input type='submit' value="Send"/> -->
+           <button type="button" name="button">Send</button>
+           <div></div>
+         </md-input-container>
       </div>
-    </div>
     </form>
-  </md-content>
-</md-div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+$(function () {
+  var socket = io();
+  $('form').submit(function(){
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
+  });
+  socket.on('chat message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  });
+});
+</script>
