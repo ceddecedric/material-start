@@ -6,3 +6,7 @@ tmp
 .DS_Store
 .idea
 !.gitkeep
+app/src/directives/
+app/src/filters/
+app/src/services/
+npm-debug.log.803837837
