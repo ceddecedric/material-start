@@ -7,10 +7,22 @@ exports.inscription = function (req, res) {
 
 };
 
-exports.connect = function (req, res) {
+exports.create = function (req, res) {
+    var returnResponse = function (obj) {
+        res.render('inscription');
+    };
 
 
-    res.sendFile(path.basename('/app/'));
+    models.User(req.body).saveAsync()
+        .then(logLib.logContent)
+        .then(returnResponse);
+
+};
+
+exports.login = function (req, res) {
+
+
+    res.render('login');
 
 
 

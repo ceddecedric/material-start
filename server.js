@@ -22,6 +22,7 @@ res.sendFile(__dirname + '/index.html');
 promise = require('bluebird');
 mongoose = promise.promisifyAll(require('mongoose'));
 fs = promise.promisifyAll(require('fs'));
+logLib = require('./app/src/lib/log');
 exphbs = require('express-handlebars');
 
  app = express();

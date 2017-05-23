@@ -1,7 +1,7 @@
-h1{
+.start h1{
 	color: #fff;
 }
-body
+.start
 {
 	background: -webkit-gradient(linear, 80% 20%, 10% 21%, from(#3A7DA8), to(#170028));
 	color: #fff;
