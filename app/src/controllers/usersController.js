@@ -47,3 +47,7 @@ exports.logged = function (req, res) {
     console.log(req.body);
     res.redirect('/accueil');
 }
+
+exports.islogin = function (req, res) {
+    res.render('accueil');
+};

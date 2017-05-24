@@ -6,3 +6,4 @@ app.get('/login', users.login);
 app.post('/login',
     passport.authenticate('local', {successRedirect:'/accueil', failureRedirect:'/login', failureFlash: true} ),
     users.logged);
+app.get('/accueil', users.islogin);
