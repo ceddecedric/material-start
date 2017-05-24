@@ -11,7 +11,7 @@
 <body class="start">
 
 <nav class="headnav" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Qwirk</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Qwirk</a>
         <ul class="right hide-on-med-and-down">
             <li><a href="/inscription">S'inscrire</a></li>
             <li><a href="/login">Se connecter</a></li>
@@ -38,21 +38,30 @@
                 <fieldset name="formulaire" id="formulaire">
                     <legend class="legend">FORMULAIRE D'INSCRIPTION</legend>
                     <p>
+                        {{#if errors}}
+                            {{#each errors}}
+                                <div style="color: red" >{{msg}}</div>
+                                {{/each}}
+                            {{/if}}
                         <label for="name">Username</label>
                         <br>
-                        <input type="text" name="name" id="name">
+                        <input type="text" name="name" id="name" >
                         <br>
                         <label for="email">Email</label>
                         <br>
-                        <input type="email" name="email" id="email">
+                        <input type="email" name="email" id="email" >
                         <br>
                         <label for="password">Password</label>
                         <br>
-                        <input type="password" name="password" id="password">
+
+
+                        <input type="password" name="password" id="password" >
                         <br>
                         <label for="confpass">Confirmation Password</label>
                         <br>
-                        <input type="password" name="confpass" id="confpass">
+
+
+                        <input type="password" name="confpass" id="confpass" >
                         <br>
                         <input type="submit" value="Inscription" class="btn-large waves-effect waves-light green">
                     </p>
@@ -66,6 +75,8 @@
 
 <!-- Compiled and minified JavaScript -->
 <script src="/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+<script src="./bower_components/materialize/dist/js/materialize.min.js" type="text/javascript"></script>
+<script src="/app/assets/ressource/script.js" type="text/javascript"></script>
 <script src="/app/jspm_packages/system.js" type="text/javascript"></script>
 <script src="/app/config.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -78,16 +89,41 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-            $('#confpass').keydown(function () {
-                var confirm = $('#confpass').val();
-                var pass = $('#password').val();
+       /* $("#password").keydown(function(limit) {
 
-                if (confirm != pass)
-                    $('#confpass').setCustomValidity('password do not match');
-                else
-                    $('#confpass').setCustomValidity('');
 
-            })
+            var limit = "7";
+
+            //Récupérer le nombre de caractères dans la zone de texte
+            var currlength = $(this).val().length;
+
+            //Afficher un texte de légende en fonction du nombre de caractères
+            if(currlength < limit){
+                $("#verif").text('Trop court (8 caracteres au minimum)');
+            }else{
+                $("#verif").text('');
+            }
+
+
+        });
+
+        $("#confpass").keydown(function(limit) {
+
+
+            var limit = "7";
+
+            //Récupérer le nombre de caractères dans la zone de texte
+            var currlength = $(this).val().length;
+
+            //Afficher un texte de légende en fonction du nombre de caractères
+            if(currlength < limit){
+                $("#verife").text('Trop court (8 caracteres au minimum)');
+            }else{
+                $("#verife").text('');
+            }
+
+
+        });*/
 
 
 
