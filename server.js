@@ -1,35 +1,16 @@
 path = require('path');
 var express = require('express');
-
-//var http = require('http').Server(express);
-//var io = require('socket.io')(http);
-
-/*app2.get('/', function(req, res){
-res.sendFile(__dirname + '/index.html');
-});*/
-
-/*io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log(('user disconnected'));
-  });
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-    console.log('message: ' + msg);
-  });
-});*/
-
 promise = require('bluebird');
 mongoose = promise.promisifyAll(require('mongoose'));
 fs = promise.promisifyAll(require('fs'));
 logLib = require('./app/src/lib/log');
 exphbs = require('express-handlebars');
-var cookieParser = require('cookie-parser');
-var expressValidator = require('express-validator');
-var flash = require('connect-flash');
-var session = require('express-session');
-var passport = require('passport');
-var LocalSrategy = require('passport-local').Strategy;
+ cookieParser = require('cookie-parser');
+ expressValidator = require('express-validator');
+ flash = require('connect-flash');
+ session = require('express-session');
+ passport = require('passport');
+  LocalStrategy = require('passport-local').Strategy;
 bcrypt = require('bcryptjs');
 
  app = express();
@@ -48,6 +29,7 @@ app.use(express.static(path.join(__dirname + '/')));
  app.set('view engine', 'handlebars');
 mongoose.connect('mongodb://localhost/qwirk_db');
 
+app.use(passport.initialize());
 // Express Session
 app.use(session({
     secret: 'secret',
@@ -88,6 +70,43 @@ models = require('./app/src/models');
 
 //import routing
 require('./app/routing/users');
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    models.getUserById(id, function (err, user) {
+        done(err, user);
+    })
+});
+
+
+
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        models.getUserByUsername(username, function (err, user) {
+            if(err) throw  err;
+            if (!user){
+                return done(null, false, {message: 'Unknown User'});
+            };
+
+            models.comparePassword(password, user.password, function (err, isMatch) {
+                if(err) throw err;
+                if(isMatch){
+                    return done(null, user);
+                } else {
+                    return done(null, false, {message: 'Invalid password'});
+                }
+            });
+        });
+    }
+));
+
+
+
+
+
 
 app.listen(3000, () => {
     console.log('http://localhost:3000');

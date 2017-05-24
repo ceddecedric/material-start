@@ -32,26 +32,26 @@
             </div>
             <div class="col s12 m6">
                 <div class="form_container center ">
-                    <form method="post" action="formulaire.php">
+                    <form method="post" action="">
                         <fieldset name="formulaire" id="formulaire">
                             <legend class="legend">FORMULAIRE DE CONNEXION</legend>
                             {{#if success_msg}}
                             <div class="card-panel teal lighten-2">{{success_msg}}</div>
                         {{/if}}
                             {{#if error_msg}}
-                                <div class="card-panel teal lighten-2">{{error_msg}}</div>
+                                <div class="card-panel red darken-1">{{error_msg}}</div>
                             {{/if}}
                             {{#if error}}
-                                <div class="card-panel teal lighten-2">{{error}}</div>
+                                <div class="card-panel orange darken-1">{{error}}</div>
                             {{/if}}
                             <p>
-                                <label for="user">Email or Username</label>
+                                <label for="username">Email</label>
                                 <br>
-                                <input type="text" name="pseudo" id="pseudo">
+                                <input type="text" name="username" id="username">
                                 <br>
-                                <label for="pass">Password</label>
+                                <label for="password">Password</label>
                                 <br>
-                                <input type="password" name="pass" id="pass">
+                                <input type="password" name="password" id="password">
                                 <br>
                                 <input id="login_button" type="submit" value="Login" class="btn-large waves-effect waves-light green">
                             </p>

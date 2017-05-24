@@ -1,10 +1,5 @@
 exports.inscription = function (req, res) {
-
-
     res.render('inscription');
-
-
-
 };
 
 exports.create = function (req, res) {
@@ -44,10 +39,11 @@ exports.create = function (req, res) {
 };
 
 exports.login = function (req, res) {
-
-
     res.render('login');
-
-
-
 };
+
+
+exports.logged = function (req, res) {
+    console.log(req.body);
+    res.redirect('/accueil');
+}
