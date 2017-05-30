@@ -49,10 +49,14 @@ exports.logged = function (req, res) {
 }
 
 exports.islogin = function (req, res) {
-    res.render('accueil');
+    res.render('inbox');
 };
 
 exports.logout = function (req, res) {
     req.logout();
     res.redirect('/');
+};
+
+exports.people = function (req, res) {
+  res.render('people');
 };

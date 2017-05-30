@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="/app/assets/ressource/material.min.css">
     <link rel="stylesheet" href="/app/assets/ressource/myCss.css"/>
     <title>Qwirk</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
 </head>
 <body>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -34,25 +44,26 @@
         </div>
     </header>
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-        <header class="demo-drawer-header">
-            <img src="/images/slide1.jpeg" class="demo-avatar">
-            <div class="demo-avatar-dropdown">
-                <span>hello@example.com</span>
-                <div class="mdl-layout-spacer"></div>
-                <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-                    <i class="material-icons" role="presentation">arrow_drop_down</i>
-                    <span class="visuallyhidden">Accounts</span>
-                </button>
-                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                    <li class="mdl-menu__item">Status</li>
-                </ul>
-            </div>
-        </header>
+      <header class="demo-drawer-header">
+          <img src="/images/slide1.jpeg" class="demo-avatar">
+          <div class="demo-avatar-dropdown">
+              <span>hi!&nbsp;{{user.name}}</span>
+              <div class="mdl-layout-spacer"></div>
+              <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                  <i class="material-icons" role="presentation">arrow_drop_down</i>
+                  <span class="visuallyhidden">Accounts</span>
+              </button>
+              <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+                  <li class="mdl-menu__item" ><a href="#" class="mdl-navigation__link">Status</a></li>
+                  <li class="mdl-menu__item"><a href="/logout" class="mdl-navigation__link">Deconnexion</a></li>
+              </ul>
+          </div>
+      </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
             <a class="mdl-navigation__link" href="/people"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>People</a>
             <a class="mdl-navigation__link" href="/inbox"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Inbox</a>
             <a class="mdl-navigation__link" href="/private_chat"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Private Chatroom</a>
-            <a class="mdl-navigation__link" href="public_chat"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Public Chatroom</a>
+            <a class="mdl-navigation__link" href="/public_chat"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Public Chatroom</a>
 
             <div class="mdl-layout-spacer"></div>
             <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
@@ -63,11 +74,14 @@
       <form action="">
         <input id="m" autocomplete="off" /><button>Send</button>
       </form>
+      <span id="author" hidden="hidden">{{user.name}}</span>
     </main>
+
 </div>
 
+<script src="/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+<script src="/app/assets/ressource/material.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
   $(function () {
     var socket = io();
@@ -77,7 +91,8 @@
       return false;
     });
     socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
+      var author = $('#author').text();
+      $('#messages').append($('<li>').text(author+': '+msg));
     });
   });
 </script>
