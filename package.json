@@ -35,7 +35,8 @@
     "mongoose": "^4.9.8",
     "mongoose-relationship": "^0.1.5",
     "path": "^0.12.7",
-    "pow-mongodb-fixtures": "^0.14.0"
+    "pow-mongodb-fixtures": "^0.14.0",
+    "socket.io": "^2.0.1"
   },
   "scripts": {
     "postinstall": "jspm install"
