@@ -19,7 +19,7 @@ exports.Channels = mongoose.model('Channels', channels.schemaChannels);
 exports.MembreChannels = mongoose.model('MembreChannels', membreChannels.schemaMembreChannels);
 
 exports.getUserByUsername = function (username, callback) {
-    var query = {name: username};
+    var query = {email: username};
     models.User.findOne(query, callback);
 }
 

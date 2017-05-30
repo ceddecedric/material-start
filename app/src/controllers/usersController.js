@@ -51,3 +51,8 @@ exports.logged = function (req, res) {
 exports.islogin = function (req, res) {
     res.render('accueil');
 };
+
+exports.logout = function (req, res) {
+    req.logout();
+    res.redirect('/');
+};
