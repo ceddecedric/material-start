@@ -5,17 +5,18 @@ mongoose = promise.promisifyAll(require('mongoose'));
 fs = promise.promisifyAll(require('fs'));
 logLib = require('./app/src/lib/log');
 exphbs = require('express-handlebars');
- cookieParser = require('cookie-parser');
- expressValidator = require('express-validator');
- flash = require('connect-flash');
+cookieParser = require('cookie-parser');
+expressValidator = require('express-validator');
+flash = require('connect-flash');
 var session = require('express-session');
- passport = require('passport');
-  LocalStrategy = require('passport-local').Strategy;
+passport = require('passport');
+LocalStrategy = require('passport-local').Strategy;
 bcrypt = require('bcryptjs');
 
- app = express();
+app = express();
 
- http = require('http').Server(app);
+http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 // BodyParser middleware
 var bodyParser = require('body-parser');
@@ -108,6 +109,17 @@ passport.use(new LocalStrategy(
         });
     }
 ));
+
+io.on('connection', function(socket){
+    console.log('a user connected');
+    socket.on('disconnect', function(){
+        console.log(('user disconnected'));
+    });
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+        console.log('message: ' + msg);
+    });
+});
 
 
 
