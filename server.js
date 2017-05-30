@@ -3,21 +3,19 @@ var express = require('express');
 promise = require('bluebird');
 mongoose = promise.promisifyAll(require('mongoose'));
 fs = promise.promisifyAll(require('fs'));
-//logLib = require('./app/src/lib/log');
+logLib = require('./app/src/lib/log');
 exphbs = require('express-handlebars');
-cookieParser = require('cookie-parser');
-expressValidator = require('express-validator');
-lash = require('connect-flash');
-session = require('express-session');
-passport = require('passport');
-LocalStrategy = require('passport-local').Strategy;
+ cookieParser = require('cookie-parser');
+ expressValidator = require('express-validator');
+ flash = require('connect-flash');
+var session = require('express-session');
+ passport = require('passport');
+  LocalStrategy = require('passport-local').Strategy;
 bcrypt = require('bcryptjs');
-app = express();
 
+ app = express();
 
-http = require('http').Server(app);
-
-var io = require('socket.io')(http);
+ http = require('http').Server(app);
 
 // BodyParser middleware
 var bodyParser = require('body-parser');
@@ -28,18 +26,21 @@ app.use(cookieParser());
 //config
 app.use(express.static(path.join(__dirname + '/')));
 
-app.set('views', __dirname + '/app/src/views');
-app.engine('handlebars', exphbs({defaultLayout: 'main', layoutsDir: __dirname + '/app/src/views/layouts'}));
-app.set('view engine', 'handlebars');
+ app.set('views', __dirname + '/app/src/views');
+ app.engine('handlebars', exphbs({defaultLayout: 'main', layoutsDir: __dirname + '/app/src/views/layouts'}));
+ app.set('view engine', 'handlebars');
 mongoose.connect('mongodb://localhost/qwirk_db');
 
-app.use(passport.initialize());
+
 // Express Session
 app.use(session({
     secret: 'secret',
     saveUninitialized: true,
     resave: true
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 //express validator
 app.use(expressValidator({
@@ -66,6 +67,7 @@ app.use(function (req, res, next) {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('errr_msg');
     res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
     next();
 })
 
@@ -84,6 +86,8 @@ passport.deserializeUser(function(id, done) {
         done(err, user);
     })
 });
+
+
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
@@ -104,6 +108,11 @@ passport.use(new LocalStrategy(
         });
     }
 ));
+
+
+
+
+
 
 http.listen(3000, () => {
     console.log('http://localhost:3000');

@@ -17,3 +17,19 @@ exports.MessageGroupes = mongoose.model('MessageGroupes', messageGroupes.schemaM
 exports.MessagePrive = mongoose.model('MessagesPrive', messagePrive.schemaMessagesPrive);
 exports.Channels = mongoose.model('Channels', channels.schemaChannels);
 exports.MembreChannels = mongoose.model('MembreChannels', membreChannels.schemaMembreChannels);
+
+exports.getUserByUsername = function (username, callback) {
+    var query = {email: username};
+    models.User.findOne(query, callback);
+}
+
+exports.getUserById = function (id, callback) {
+       models.User.findById(id, callback);
+}
+
+exports.comparePassword = function (candidatePassword, hash, callback) {
+    bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+            if(err) throw err;
+            callback(null, isMatch);
+    });
+}
