@@ -8,7 +8,7 @@ app.post('/login',
     users.logged);
 app.get('/accueil', ensureAuthenticated , users.islogin);
 app.get('/logout',users.logout);
-app.get('/people', users.people);
+app.get('/people', ensureAuthenticated, users.people);
 
 function ensureAuthenticated (req, res, next) {
     if(req.isAuthenticated()){
