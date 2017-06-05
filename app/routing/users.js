@@ -9,6 +9,7 @@ app.post('/login',
 app.get('/accueil', ensureAuthenticated , users.islogin);
 app.get('/logout',users.logout);
 app.get('/people', ensureAuthenticated, users.people);
+app.get('/status',ensureAuthenticated, users.status);
 
 function ensureAuthenticated (req, res, next) {
     if(req.isAuthenticated()){

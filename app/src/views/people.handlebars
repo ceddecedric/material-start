@@ -45,7 +45,7 @@
                   <span class="visuallyhidden">Accounts</span>
               </button>
               <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                  <li class="mdl-menu__item" ><a href="#" class="mdl-navigation__link">Status</a></li>
+                  <li class="mdl-menu__item" ><a href="/status" class="mdl-navigation__link">Status</a></li>
                   <li class="mdl-menu__item"><a href="/logout" class="mdl-navigation__link">Deconnexion</a></li>
               </ul>
           </div>
@@ -61,56 +61,35 @@
         </nav>
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="mdl-grid demo-content">
+        <br>
+        <div class="mdl-grid" style="margin-left: 30px; margin-right: 30px;">
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%;">
+                <thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Nom</th>
+                    <th>Email</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Ebobolywood<span>status</span></td>
+                    <td>25</td>
+
+                </tr>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                    <td>50</td>
+
+                </tr>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                    <td>10</td>
+
+                </tr>
+                </tbody>
+            </table>
         </div>
-
-        <div class="contacts table" aria-labelledby="contacts-caption-text">
-  <div class="contacts-header thead">
-    <span class="th" id="th-name">Name:</span>
-    <span class="th" id="th-org">Organization:</span>
-    <span class="th" id="th-phone">Phone:</span>
-    <span class="th" id="th-email">Email:</span>
-  </div>
-  <ul class="tbody">
-    <li class="tr" itemscope itemtype="http://schema.org/Person">
-      <span class="td">
-        <span class="label">Name:</span>
-        <span class="data" itemprop="name" aria-labelledby="th-name">Ola Nordmann</span>
-      </span>
-      <span class="td" itemscope itemtype="http://schema.org/Organization">
-        <span class="label">Organisation:</span>
-        <span class="data" itemprop="name" aria-labelledby="th-org">Acme Corp</span>
-      </span>
-      <span class="td">
-        <span class="label">Phone:</span>
-        <span class="data" itemprop="telephone" aria-labelledby="th-phone">+47 12 34 56 78 90</span>
-      </span>
-      <span class="td">
-        <span class="label">Email:</span>
-        <span class="data" itemprop="email" aria-labelledby="th-email"><a href="mailto:ola.nordmann@acme-corp.no">Email</a></span>
-      </span>
-    </li>
-    <li class="tr" itemscope itemtype="http://schema.org/Person">
-      <span class="td">
-        <span class="label">Name:</span>
-        <span class="data" itemprop="name" aria-labelledby="th-name">Kari Nordmann</span>
-      </span>
-      <span class="td" itemscope itemtype="http://schema.org/Organization">
-        <span class="label">Organisation:</span>
-        <span class="data" itemprop="name" aria-labelledby="th-org">Acme Corp</span>
-      </span>
-      <span class="td">
-        <span class="label">Phone:</span>
-        <span class="data" itemprop="telephone" aria-labelledby="th-phone">+47 12 34 56 78 90</span>
-      </span>
-      <span class="td">
-        <span class="label">Email:</span>
-        <span class="data" itemprop="email" aria-labelledby="th-email"><a href="mailto:kari.nordmann@acme-corp.no">Email</a></span>
-      </span>
-    </li>
-  </ul>
-</div>
-
 
     </main>
 </div>

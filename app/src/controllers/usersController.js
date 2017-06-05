@@ -60,3 +60,7 @@ exports.logout = function (req, res) {
 exports.people = function (req, res) {
   res.render('people');
 };
+
+exports.status = function (req, res) {
+    res.render('status');
+}
