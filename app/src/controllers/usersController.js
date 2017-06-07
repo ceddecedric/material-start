@@ -81,13 +81,4 @@ exports.Upstatus = function (req, res) {
         .then(returnUpdateObject);
 }
 
-exports.statuRep = function (req, res) {
 
-
-    var options = {_id: req.body._id};
-
-    models.User.findOneAsync(options)
-        .then(logLib.logContent);
-
-
-}
