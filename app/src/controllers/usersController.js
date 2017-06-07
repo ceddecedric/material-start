@@ -59,13 +59,13 @@ exports.logout = function (req, res) {
 
 exports.people = function (req, res) {
     var returnResponse = function (obj) {
-
+        
         res.render('people',{invit:obj});
 
     };
 
 
-    models.InvitationTemp.count({idUserInvit:req.user._id})
+    models.InvitationTemp.count({idUserInvit:'"'+req.user._id+'"'})
     .then(returnResponse);
 };
 
@@ -98,6 +98,6 @@ exports.Upstatus = function (req, res) {
 
     models.User.findOneAndUpdateAsync(options,req.body)
         .then(returnUpdateObject);
-}
 
+}
 

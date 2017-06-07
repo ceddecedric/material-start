@@ -95,16 +95,21 @@
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">People</span>
             <div class="mdl-layout-spacer"></div>
+
             <div class="mdl-js-button material-icons mdl-badge mdl-badge--overlap " data-badge="{{invit}}" id="bas" style="cursor: pointer">supervisor_account</div>
             <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="bas">
                 <li class="mdl-menu__item">About</li>
                 <li class="mdl-menu__item">Legal information</li>
             </ul>
 
-                <label class="mdl-button mdl-js-button mdl-button--icon  dialog-button">
+
+
+
+
+            <label class="mdl-button mdl-js-button mdl-button--icon  dialog-button">
+
                 <i class="material-icons">person_add</i>
             </label>
-
            
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                 <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -125,6 +130,31 @@
         </div>
     </header>
     
+
+    <dialog id="dialog" class="mdl-dialog">
+        <h3 class="mdl-dialog__title">Invitations</h3>
+        
+        <div class="mdl-dialog__content">
+        <div class="form_container center ">
+
+        <form method="post" action="">
+        <fieldset name="formulaire" id="formulaire">
+        <p>
+            <label for="labelemail">Email</label>
+            <br>
+            <input type="email" name="email" id="email">
+             <input type="hidden" name="idUsers" id="idUsers" value="{{user._id}}">
+            <br>
+            <input id="login_button" type="submit" value="Send" class="btn-large waves-effect waves-light green">
+        </p>
+        </fieldset>
+        </form>
+        </div>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button">Close</button>
+        </div>
+    </dialog>
 
 
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">

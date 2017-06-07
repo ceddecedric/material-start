@@ -1,11 +1,19 @@
 exports.create = function (req, res) {
 
-    var commentaire = req.body.comment;
-    //models.
+    var returnResponse = function (obj) {
+        models.InvitationTemp({idUsers: '"'+ req.user._id +'"', idUserInvit: '"'+ obj._id +'"'}).saveAsync();
+    };
 
-    var use = models.User({email:  '"'+ user.body.email+'"'});
+    var options = {email: req.body.email};
 
-    var invitations = models.InvitationTemp({idUsers: '111', messageInvitation: '"'+ txs+'"'}).save();
+     models.User.findOneAsync(options).then(returnResponse);
+
 
     res.redirect('/people');
+};
+
+exports.index = function (req, res) {
+    var returnResponse = function (obj) {
+        console.log('test');
+    };
 };
