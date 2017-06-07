@@ -46,7 +46,7 @@ exports.login = function (req, res) {
 exports.logged = function (req, res) {
     console.log(req.body);
     res.redirect('/accueil');
-}
+};
 
 exports.islogin = function (req, res) {
     res.render('inbox');
@@ -58,9 +58,26 @@ exports.logout = function (req, res) {
 };
 
 exports.people = function (req, res) {
-  res.render('people');
+    var returnResponse = function (obj) {
+        res.render('people',{users: obj});
+    };
+
+    
+    models.User.find().sort({name:1}).select('-_id').execAsync()
+    .then(logLib.logContent)
+    .then(returnResponse);
 };
 
 exports.status = function (req, res) {
     res.render('status');
-}
+};
+
+exports.index = function (req, res) {
+    var returnResponse = function (obj) {
+        res.render('people',{users: obj});
+    };
+
+    models.User.find().sort({name:1}).select('-_id').execAsync()
+    .then(logLib.logContent)
+    .then(returnResponse);
+};

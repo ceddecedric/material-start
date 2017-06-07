@@ -57,21 +57,14 @@
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">People</span>
             <div class="mdl-layout-spacer"></div>
-                        <label class="mdl-button mdl-js-button mdl-button--icon  dialog-button">
+                <label class="mdl-button mdl-js-button mdl-button--icon">
+                 <i class="material-icons">supervisor_account</i>
+            </label>
+                <label class="mdl-button mdl-js-button mdl-button--icon  dialog-button">
                 <i class="material-icons">person_add</i>
             </label>
-            <dialog id="dialog" class="mdl-dialog">
-                <h3 class="mdl-dialog__title">Invitations</h3>
-                <div class="mdl-dialog__content">
-                    <p>
-                    {{user.name}}
-                    </p>
-                </div>
-                <div class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button">Close</button>
 
-                </div>
-            </dialog>
+           
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                 <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
                     <i class="material-icons">search</i>
@@ -90,6 +83,40 @@
             </ul>
         </div>
     </header>
+    
+    <dialog id="dialog" class="mdl-dialog">
+        <h3 class="mdl-dialog__title">Invitations</h3>
+        
+        <div class="mdl-dialog__content">
+        <div class="form_container center ">
+
+        <form method="post" action="">
+        <fieldset name="formulaire" id="formulaire">
+        
+        <p>
+            <label for="labelemail">Email</label>
+            <br>
+            <input type="email" name="email" id="email">
+            <br>
+            <input id="login_button" type="submit" value="Send" class="btn-large waves-effect waves-light green">
+        </p>
+        </fieldset>
+        </form>
+            <!--<ul>
+            {{#each users}}
+                <li>
+                Name : {{name}} <br/> E-mail : {{email}} <br/>
+                </li>
+            {{/each}}
+            </ul>-->
+        </div>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button">Close</button>
+
+        </div>
+    </dialog>
+
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
       <header class="demo-drawer-header">
           <img src="/images/slide1.jpeg" class="demo-avatar">
