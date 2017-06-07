@@ -57,13 +57,19 @@
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">People</span>
             <div class="mdl-layout-spacer"></div>
-                <label class="mdl-button mdl-js-button mdl-button--icon">
-                 <i class="material-icons">supervisor_account</i>
-            </label>
-                <label class="mdl-button mdl-js-button mdl-button--icon  dialog-button">
+
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="supervision">
+                <i class="material-icons">supervisor_account</i>
+            </button>
+            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="supervision">
+                {{#each users}}
+                    <li class="mdl-menu__item">About</li>
+                {{/each}}
+            </ul>
+
+            <label class="mdl-button mdl-js-button mdl-button--icon  dialog-button">
                 <i class="material-icons">person_add</i>
             </label>
-
            
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                 <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -92,23 +98,16 @@
 
         <form method="post" action="">
         <fieldset name="formulaire" id="formulaire">
-        
         <p>
             <label for="labelemail">Email</label>
             <br>
             <input type="email" name="email" id="email">
+             <input type="hidden" name="idUsers" id="idUsers" value="{{user._id}}">
             <br>
             <input id="login_button" type="submit" value="Send" class="btn-large waves-effect waves-light green">
         </p>
         </fieldset>
         </form>
-            <!--<ul>
-            {{#each users}}
-                <li>
-                Name : {{name}} <br/> E-mail : {{email}} <br/>
-                </li>
-            {{/each}}
-            </ul>-->
         </div>
         </div>
         <div class="mdl-dialog__actions">

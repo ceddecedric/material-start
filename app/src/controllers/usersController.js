@@ -70,7 +70,7 @@ exports.people = function (req, res) {
 
 exports.status = function (req, res) {
     res.render('status');
-<<<<<<< HEAD
+
 };
 
 exports.index = function (req, res) {
@@ -82,8 +82,8 @@ exports.index = function (req, res) {
     .then(logLib.logContent)
     .then(returnResponse);
 };
-=======
-}
+
+
 
 exports.Upstatus = function (req, res) {
 
@@ -100,6 +100,3 @@ exports.Upstatus = function (req, res) {
     models.User.findOneAndUpdateAsync(options,req.body)
         .then(returnUpdateObject);
 }
-
-
->>>>>>> 917e2cfee954903731d2c037f1c7aec62f3d2366
