@@ -7,5 +7,7 @@ exports.privategroup = function(req, res) {
 }
 
 exports.publicgroup = function(req, res) {
+  models.MessageGroupes.find({}).sort({messageText:1}).select('messageText time').execAsync()
+    .then(logLib.logContent);
   res.render('public_chat');
 }
