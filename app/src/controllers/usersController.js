@@ -59,18 +59,19 @@ exports.logout = function (req, res) {
 
 exports.people = function (req, res) {
     var returnResponse = function (obj) {
-        res.render('people',{users: obj});
+
+        res.render('people',{invit:obj});
+
     };
 
-    
-    models.User.find().sort({name:1}).select('-_id').execAsync()
-    .then(logLib.logContent)
+
+    models.InvitationTemp.count({idUserInvit:req.user._id})
     .then(returnResponse);
 };
 
 exports.status = function (req, res) {
     res.render('status');
-<<<<<<< HEAD
+
 };
 
 exports.index = function (req, res) {
@@ -79,11 +80,9 @@ exports.index = function (req, res) {
     };
 
     models.User.find().sort({name:1}).select('-_id').execAsync()
-    .then(logLib.logContent)
     .then(returnResponse);
 };
-=======
-}
+
 
 exports.Upstatus = function (req, res) {
 
@@ -102,4 +101,3 @@ exports.Upstatus = function (req, res) {
 }
 
 
->>>>>>> 917e2cfee954903731d2c037f1c7aec62f3d2366
