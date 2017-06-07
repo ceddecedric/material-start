@@ -119,6 +119,9 @@ io.on('connection', function(socket){
     });
     socket.on('chat message', function(msg){
         io.emit('chat message', msg);
+        var option = {messageText: msg};
+        models.MessageGroupes(option).saveAsync()
+          .then(logLib.logContent);
         console.log('message: ' + msg);
     });
 });
