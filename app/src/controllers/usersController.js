@@ -64,3 +64,30 @@ exports.people = function (req, res) {
 exports.status = function (req, res) {
     res.render('status');
 }
+
+exports.Upstatus = function (req, res) {
+
+    var options = {_id: req.body._id};
+
+    var returnUpdateObject = function () {
+        models.User.findOneAsync(options)
+            .then(logLib.logContent);
+
+    }
+
+    delete req.body['_id'];
+
+    models.User.findOneAndUpdateAsync(options,req.body)
+        .then(returnUpdateObject);
+}
+
+exports.statuRep = function (req, res) {
+
+
+    var options = {_id: req.body._id};
+
+    models.User.findOneAsync(options)
+        .then(logLib.logContent);
+
+
+}

@@ -10,6 +10,7 @@ app.get('/accueil', ensureAuthenticated , users.islogin);
 app.get('/logout',users.logout);
 app.get('/people', ensureAuthenticated, users.people);
 app.get('/status',ensureAuthenticated, users.status);
+app.put('/status', users.Upstatus);
 
 function ensureAuthenticated (req, res, next) {
     if(req.isAuthenticated()){

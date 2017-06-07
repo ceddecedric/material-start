@@ -62,8 +62,9 @@
           </div>
       </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a class="mdl-navigation__link" href="/people"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>People</a>
             <a class="mdl-navigation__link" href="/inbox"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Inbox</a>
+            <a class="mdl-navigation__link" href="/people"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>People</a>
+
             <a class="mdl-navigation__link" href="/private_chat"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Private Chatroom</a>
             <a class="mdl-navigation__link" href="/public_chat"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Public Chatroom</a>
 
@@ -83,7 +84,7 @@
                   </div>
 
                   <div class="mdl-cell--3-col" style="margin-left: 10px;">
-                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width: 100px;">Send</button>
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width: 100px;"><i class="material-icons">send</i></button>
                   </div>
 
           </div>
@@ -151,7 +152,7 @@ function datetime() {
         AddZero(now.getMonth() + 1),
         now.getFullYear()].join("/"),
         [AddZero(now.getHours()),
-        AddZero(now.getMinutes())].join(":"),
+            AddZero(now.getMinutes())].join(":"),
         now.getHours() >= 12 ? "PM" : "AM"].join(" ");
 };
 
