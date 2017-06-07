@@ -19,6 +19,23 @@
         .inputt {
             width: 100%;
         }
+        .taile{
+            max-height: 500px;
+        }
+        .mdl-card__supporting-text{
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .over{
+            min-height: 40px;
+            padding-top: 15px;
+        }
+        .over:hover{
+            background-color: gray;
+            opacity: 0.75;
+        }
+
 
     </style>
 </head>
@@ -63,10 +80,11 @@
             </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a class="mdl-navigation__link" href="/people"><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                              role="presentation">person</i>People</a>
             <a class="mdl-navigation__link" href="/inbox"><i class="mdl-color-text--blue-grey-400 material-icons"
                                                              role="presentation">inbox</i>Inbox</a>
+            <a class="mdl-navigation__link" href="/people"><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                              role="presentation">person</i>People</a>
+
             <a class="mdl-navigation__link" href="/private_chat"><i class="mdl-color-text--blue-grey-400 material-icons"
                                                                     role="presentation">inbox</i>Private Chatroom</a>
             <a class="mdl-navigation__link" href="/public_chat"><i class="mdl-color-text--blue-grey-400 material-icons"
@@ -87,18 +105,18 @@
 
                     </div>
                     <div class="mdl-card__supporting-text">
-
+<p style="display: none;" id="myid">{{user._id}}</p>
                             <div class="mdl-grid">
 
-                                <div class="mdl-cell--9-col">
+                                <div class="mdl-cell--10-col">
                                     <div class="inputt mdl-textfield mdl-js-textfield">
-                                        <input class="mdl-textfield__input" type="text" id="sample1">
-                                        <label class="mdl-textfield__label" for="sample1">Edit your status here...</label>
+                                        <input class="mdl-textfield__input" type="text" id="editStatus" />
+                                        <label class="mdl-textfield__label" for="editStatus">Edit your status here...</label>
                                     </div>
                                 </div>
 
-                                <div class="mdl-cell--3-col" style="margin-left: 10px;padding-top: 10px;">
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width: 100px;">OK</button>
+                                <div class="mdl-cell--2-col" style="margin-left: 10px;padding-top: 10px;">
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width: 100px;" id="btnStatus">OK</button>
                                 </div>
 
                             </div>
@@ -113,12 +131,54 @@
         <div class="mdl-grid">
             <div class="mdl-cell--9-col">
 
-                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp taile">
                     <div class="mdl-card__title">
-
+                        <h2 class="mdl-card__title-text">Select your news</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
-
+                        <div class="over" id="status">
+                            <p>{{user.status}}</p>
+                        </div>
+                        <hr>
+                        <div class="over" id="over">
+                            <p>Disponible</p>
+                        </div>
+                        <hr>
+                        <div class="over" id="over">
+                            <p>Occup&eacute;(e)</p>
+                        </div>
+                        <hr>
+                        <div class="over" id="over">
+                            <p>A l'&eacute;cole</p>
+                        </div>
+                        <hr>
+                        <div class="over">
+                            <p>Au cin&eacute;ma</p>
+                        </div>
+                        <hr>
+                        <div class="over">
+                            <p>Au travail</p>
+                        </div>
+                        <hr>
+                        <div class="over">
+                            <p>Batterie tr&egrave;s faible</p>
+                        </div>
+                        <hr>
+                        <div class="over">
+                            <p>En r&eacute;union</p>
+                        </div>
+                        <hr>
+                        <div class="over">
+                            <p>A la salle de sport</p>
+                        </div>
+                        <hr>
+                        <div class="over">
+                            <p>Endormi(e)</p>
+                        </div>
+                        <hr>
+                        <div class="over">
+                            <p>Appels d'urgence seulement</p>
+                        </div>
 
                     </div>
                 </div>
@@ -133,4 +193,51 @@
 
 <script src="/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
 <script src="/app/assets/ressource/material.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('#btnStatus').click(function (e) {
+          e.preventDefault();
+          var id = $('#myid').text();
+          var status = $('#editStatus').val();
+          $.ajax({
+                      type : 'PUT',
+                      url  : 'http://localhost:3000/status' ,
+                      data : {status: status, _id: id},
+                        dataType : "JSON",
+                      success : function(data){
+                         console.log(data);
+
+                      },
+                      error : function(data) {
+                          alert('echec laaa');
+                      }
+                  });
+      });
+
+      $('.over').click(function (e) {
+            e.preventDefault();
+            var text = $(this).text();
+          var id = $('#myid').text();
+
+          $.ajax({
+              type : 'PUT',
+              url  : 'http://localhost:3000/status' ,
+              data : {status: text, _id: id},
+              dataType : "JSON",
+              success : function(data){
+
+              },
+              error : function(data) {
+                  alert('echec laaa');
+              }
+          });
+
+      })
+
+
+
+
+    });
+</script>
 </body>
