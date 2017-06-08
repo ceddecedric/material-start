@@ -106,21 +106,21 @@
 
                     </div>
                     <div class="mdl-card__supporting-text">
-<p style="display: none;" id="myid">{{user._id}}</p>
-                            <div class="mdl-grid">
+                        <p style="display: none;" id="myid">{{user._id}}</p>
+                        <div class="mdl-grid">
 
-                                <div class="mdl-cell--10-col">
-                                    <div class="inputt mdl-textfield mdl-js-textfield">
-                                        <input class="mdl-textfield__input" type="text" id="editStatus" />
-                                        <label class="mdl-textfield__label" for="editStatus">Edit your status here...</label>
-                                    </div>
+                            <div class="mdl-cell--10-col">
+                                <div class="inputt mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" type="text" id="editStatus" value="{{user.status}}" required/>
+                                    <label class="mdl-textfield__label" for="editStatus">Edit your status here...</label>
                                 </div>
-
-                                <div class="mdl-cell--2-col" style="margin-left: 10px;padding-top: 10px;">
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width: 100px;" id="btnStatus">OK</button>
-                                </div>
-
                             </div>
+
+                            <div class="mdl-cell--2-col" style="margin-left: 10px;padding-top: 10px;">
+                                <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width: 100px;" id="btnStatus">OK</button>
+                            </div>
+
+                        </div>
 
                     </div>
                 </div>
@@ -128,7 +128,7 @@
             <div class="mdl-cell--3-col"></div>
 
         </div>
-<br>
+        <br>
         <div class="mdl-grid">
             <div class="mdl-cell--9-col">
 
@@ -197,44 +197,45 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-      $('#btnStatus').click(function (e) {
-          e.preventDefault();
-          var id = $('#myid').text();
-          var status = $('#editStatus').val();
-          $.ajax({
-                      type : 'PUT',
-                      url  : 'http://localhost:3000/status' ,
-                      data : {status: status, _id: id},
-                        dataType : "JSON",
-                      success : function(data){
-                         console.log(data);
+        $('#btnStatus').click(function (e) {
+            e.preventDefault();
+            var id = $('#myid').text();
+            var status = $('#editStatus').val();
+            $.ajax({
+                type : 'PUT',
+                url  : 'http://localhost:3000/status' ,
+                data : {status: status, _id: id},
+                dataType : "JSON",
+                success : function(data){
+                    location.reload(true);
 
-                      },
-                      error : function(data) {
-                          alert('echec laaa');
-                      }
-                  });
-      });
+                },
+                error : function(data) {
+                    location.reload(true);
+                }
+            });
+            location.reload(true);
+        });
 
-      $('.over').click(function (e) {
+        $('.over').click(function (e) {
             e.preventDefault();
             var text = $(this).text();
-          var id = $('#myid').text();
+            var id = $('#myid').text();
 
-          $.ajax({
-              type : 'PUT',
-              url  : 'http://localhost:3000/status' ,
-              data : {status: text, _id: id},
-              dataType : "JSON",
-              success : function(data){
+            $.ajax({
+                type : 'PUT',
+                url  : 'http://localhost:3000/status' ,
+                data : {status: text, _id: id},
+                dataType : "JSON",
+                success : function(data){
 
-              },
-              error : function(data) {
-                  alert('echec laaa');
-              }
-          });
+                },
+                error : function(data) {
 
-      })
+                }
+            });
+
+        })
 
 
 
