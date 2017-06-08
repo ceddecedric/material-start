@@ -97,6 +97,32 @@ exports.status = function (req, res) {
 
 };
 
+exports.profil = function (req, res) {
+    res.render('profil');
+};
+
+exports.Upprofil = function (req, res) {
+
+    var options = {_id: req.body._id};
+    
+    var returnUpadatedObject = function () {
+        models.User.findOneAsync(options)
+            .then(logLib.logContent)
+            .then(returnResponse);
+    }
+    
+    delete req.body['_id'];
+
+    //models.User.findOneAndUpdate(options, req.body)
+        //.then(returnUpadatedObject);
+    models.User.findOneAndUpdate({_id: req.body._id}, {$set: {name: req.body.name}}, function(err,doc) {
+       if (err) { throw err; }
+       else { console.log("Updated"); }
+     });  
+
+    res.redirect('/profil');
+};
+
 exports.index = function (req, res) {
     var returnResponse = function (obj) {
         res.render('people',{users: obj});
