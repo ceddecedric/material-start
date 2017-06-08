@@ -46,7 +46,7 @@ exports.login = function (req, res) {
 exports.logged = function (req, res) {
     console.log(req.body);
     res.redirect('/accueil');
-}
+};
 
 exports.islogin = function (req, res) {
     res.render('inbox');
@@ -58,12 +58,54 @@ exports.logout = function (req, res) {
 };
 
 exports.people = function (req, res) {
-  res.render('people');
+    var returnResponse = function (obj) {
+        var returnObj = function (ob) {
+
+              //res.render('people',{invit:obj, invitation:o});
+
+
+           /* models.User.find({_id:ob.idUsers}).sort({name:1}).select('name _id').execAsync()
+                .then(returnRespon) */
+  var donee = [];
+   ob.forEach(function (el) {
+       models.User.find({_id:el.idUsers}).sort({name:1}).select('name _id').execAsync()
+           .then(function (o) {
+              for(var i = 0; i < o.length; i++)
+              {
+                  donee.push(o[i]);
+              }
+              console.log(donee);
+           });
+
+   })
+
+            res.render('people',{invit:obj, invitation:donee});
+
+        }
+        models.InvitationTemp.find({idUserInvit:req.user._id}).execAsync()
+            .then(returnObj) ;
+
+    };
+
+
+    models.InvitationTemp.count({idUserInvit:req.user._id})
+        .then(returnResponse);
 };
 
 exports.status = function (req, res) {
     res.render('status');
-}
+
+};
+
+exports.index = function (req, res) {
+    var returnResponse = function (obj) {
+        res.render('people',{users: obj});
+    };
+
+    models.User.find().sort({name:1}).select('-_id').execAsync()
+    .then(returnResponse);
+};
+
 
 exports.Upstatus = function (req, res) {
 
@@ -79,6 +121,6 @@ exports.Upstatus = function (req, res) {
 
     models.User.findOneAndUpdateAsync(options,req.body)
         .then(returnUpdateObject);
-}
 
+}
 

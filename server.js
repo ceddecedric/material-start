@@ -78,7 +78,7 @@ models = require('./app/src/models');
 //import routing
 require('./app/routing/users');
 require('./app/routing/chats');
-
+require('./app/routing/invitations');
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);

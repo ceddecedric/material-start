@@ -8,14 +8,135 @@
     <link rel="stylesheet" href="/app/assets/ressource/material.min.css">
     <link rel="stylesheet" href="/app/assets/ressource/myCss.css"/>
     <link rel="stylesheet" href="/app/assets/ressource/contactlist.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.4/dialog-polyfill.min.css">
     <title>Qwirk</title>
+    <style>
+        .mdl-dialog {
+            border: none;
+            box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
+            width: 580px;
+            margin-left: auto;
+            margin-right: auto; }
+        .mdl-dialog__title {
+            padding: 24px 24px 0;
+            margin: 0;
+            font-size: 2.5rem; }
+        .mdl-dialog__actions {
+            padding: 8px 8px 8px 24px;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-flex-direction: row-reverse;
+            -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+            -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
+        .mdl-dialog__actions > * {
+            margin-right: 8px;
+            height: 36px; }
+        .mdl-dialog__actions > *:first-child {
+            margin-right: 0; }
+        .mdl-dialog__actions--full-width {
+            padding: 0 0 8px 0; }
+        .mdl-dialog__actions--full-width > * {
+            height: 48px;
+            -webkit-flex: 0 0 100%;
+            -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+            padding-right: 16px;
+            margin-right: 0;
+            text-align: right; }
+        .mdl-dialog__content {
+            padding: 20px 24px 24px 24px;
+            color: rgba(0,0,0, 0.54); }
+
+
+
+    </style>
 </head>
 <body>
+<dialog id="dialog" class="mdl-dialog">
+    <h3 class="mdl-dialog__title">Invitations</h3>
+
+    <div class="mdl-dialog__content">
+        <div class="form_container center ">
+
+            <form method="post" action="">
+                <fieldset name="formulaire" id="formulaire">
+
+                    <p>
+
+                    <div class="inputt mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="email" name="email" id="email" />
+                        <label class="mdl-textfield__label" for="email">Edit your status here...</label>
+                    </div>
+                    <br>
+                    <input id="login_button" type="submit" value="Ajouter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    </p>
+                </fieldset>
+            </form>
+            <!--<ul>
+            {{#each users}}
+                <li>
+                Name : {{name}} <br/> E-mail : {{email}} <br/>
+                </li>
+            {{/each}}
+            </ul>-->
+        </div>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close" >Close</button>
+
+    </div>
+</dialog>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">People</span>
             <div class="mdl-layout-spacer"></div>
+
+            <div class="mdl-js-button material-icons mdl-badge mdl-badge--overlap " data-badge="{{invit}}" id="bas" style="cursor: pointer">supervisor_account</div>
+            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="bas">
+                <label class="mdl-menu__item" style="min-width: 400px;">invitations</label>
+                {{#if invit}}
+                    {{#each invitation}}
+                        <li class="mdl-menu__item" style="min-width: 400px;">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell--7-col over" style="padding-top: 15px; font-size: 50px;">
+                                    <p style=" font-size: 24px;">{{name}}</p>
+                                </div>
+                                <div class="mdl-cell--5-col mdl-typography--text-right">
+                                    <label class="mdl-button mdl-js-button mdl-button--icon" onclick="inviter(this)" id="{{_id}}">
+
+                                        <i class="material-icons">done</i>
+                                    </label>
+                                    <label class="mdl-button mdl-js-button mdl-button--icon" onclick="refuser(this)" id="{{_id}}">
+
+                                        <i class="material-icons">delete</i>
+                                    </label>
+                                </div>
+
+                            </div>
+                        </li>
+                        <hr>
+                    {{/each}}
+                {{else}}
+                    <li class="mdl-menu__item" style="min-width: 400px;">No invitation</li>
+                {{/if}}
+
+
+            </ul>
+
+
+
+
+
+            <label class="mdl-button mdl-js-button mdl-button--icon  dialog-button">
+
+                <i class="material-icons">person_add</i>
+            </label>
+
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                 <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
                     <i class="material-icons">search</i>
@@ -34,26 +155,27 @@
             </ul>
         </div>
     </header>
+
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-      <header class="demo-drawer-header">
-          <img src="/images/slide1.jpeg" class="demo-avatar">
-          <div class="demo-avatar-dropdown">
-              <span>hi!&nbsp;{{user.name}}</span>
-              <div class="mdl-layout-spacer"></div>
-              <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-                  <i class="material-icons" role="presentation">arrow_drop_down</i>
-                  <span class="visuallyhidden">Accounts</span>
-              </button>
-              <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                  <li class="mdl-menu__item" ><a href="/status" class="mdl-navigation__link">Status</a></li>
-                  <li class="mdl-menu__item"><a href="/logout" class="mdl-navigation__link">Deconnexion</a></li>
-              </ul>
-          </div>
-      </header>
+        <header class="demo-drawer-header">
+            <img src="/images/slide1.jpeg" class="demo-avatar">
+            <div class="demo-avatar-dropdown">
+                <span>hi!&nbsp;{{user.name}}</span>
+                <div class="mdl-layout-spacer"></div>
+                <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                    <i class="material-icons" role="presentation">arrow_drop_down</i>
+                    <span class="visuallyhidden">Accounts</span>
+                </button>
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+                    <li class="mdl-menu__item" ><a href="/status" class="mdl-navigation__link">Status</a></li>
+                    <li class="mdl-menu__item"><a href="/logout" class="mdl-navigation__link">Deconnexion</a></li>
+                </ul>
+            </div>
+        </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
             <a class="mdl-navigation__link" href="/inbox"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Inbox</a>
             <a class="mdl-navigation__link" href="/people"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>People</a>
-             <a class="mdl-navigation__link" href="/private_chat"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Private Chatroom</a>
+            <a class="mdl-navigation__link" href="/private_chat"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Private Chatroom</a>
             <a class="mdl-navigation__link" href="/public_chat"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Public Chatroom</a>
 
             <div class="mdl-layout-spacer"></div>
@@ -93,7 +215,44 @@
 
     </main>
 </div>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.4/dialog-polyfill.js"></script>
+<script>
+    (function() {
+        'use strict';
+        var dialogButton = document.querySelector('.dialog-button');
+        var dialog = document.querySelector('#dialog');
+        if (! dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialogButton.addEventListener('click', function() {
+            dialog.showModal();
+        });
+        dialog.querySelector('button:not([disabled])')
+                .addEventListener('click', function() {
+                    dialog.close();
+                });
+    }());
+</script>
 <script src="/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
 <script src="/app/assets/ressource/material.min.js"></script>
+<script type="text/javascript">
+    function inviter(that) {
+        var id = that.id;
+
+        $.ajax({
+            type : 'POST',
+            url  : 'http://localhost:3000/accepter',
+            data : {_id : '"'+id+'"'},
+            success : function(data){
+
+            },
+            error : function(data) {
+                alert("echec");
+            }
+        });
+    }
+    function refuser(that) {
+        alert(that.id);
+    }
+</script>
 </body>
