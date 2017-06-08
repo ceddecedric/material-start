@@ -104,21 +104,17 @@ exports.profil = function (req, res) {
 exports.Upprofil = function (req, res) {
 
     var options = {_id: req.body._id};
-    
-    var returnUpadatedObject = function () {
+
+    var returnUpdateObject = function () {
         models.User.findOneAsync(options)
-            .then(logLib.logContent)
-            .then(returnResponse);
+            .then(logLib.logContent);
+
     }
-    
+
     delete req.body['_id'];
 
-    //models.User.findOneAndUpdate(options, req.body)
-        //.then(returnUpadatedObject);
-    models.User.findOneAndUpdate({_id: req.body._id}, {$set: {name: req.body.name}}, function(err,doc) {
-       if (err) { throw err; }
-       else { console.log("Updated"); }
-     });  
+    models.User.findOneAndUpdateAsync(options,req.body)
+        .then(returnUpdateObject);
 
     res.redirect('/profil');
 };

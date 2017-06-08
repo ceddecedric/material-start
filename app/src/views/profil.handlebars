@@ -112,7 +112,7 @@
                                         <div class="mdl-cell--10-col">
                                             <div class="inputt mdl-textfield mdl-js-textfield">
                                                 <label for="labelname">Name : </label>
-                                                <input class="mdl-textfield__input" type="text" id="" value="{{user.name}}"/>
+                                                <input class="mdl-textfield__input" type="text" id="editName" value="{{user.name}}"/>
                                                 <br><br>
                                                 <label for="labelemail">Email</label>
                                                 <input class="mdl-textfield__input" type="text" id="editEmail" value="{{user.email}}"/>
@@ -139,48 +139,45 @@
 <script src="/app/assets/ressource/material.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-      $('#btnProfil').click(function (e) {
-          e.preventDefault();
-          var id = $('#myid').text();
-          var name = $('#editName').val();
-          var email = $('#editEmail').val();
-          var password = $('#editPassword').val();
-          $.ajax({
-                      type : 'PUT',
-                      url  : 'http://localhost:3000/profil' ,
-                      data : {name: name, _id: id},
-                      dataType : "JSON",
-                      success : function(data){
-                         console.log(data);
-
-                      },
-                      error : function(data) {
-                          alert('echec laaa');
-                      }
-                  });
-      });
-
-      $('.over').click(function (e) {
+        $('#btnProfil').click(function (e) {
             e.preventDefault();
-          var id = $('#myid').text();
-          var name = $('#editName').val();
-          var email = $('#editEmail').val();
-          var password = $('#editPassword').val();
+            var id = $('#myid').text();
+            var editname = $('#editName').val();
+            $.ajax({
+                type : 'PUT',
+                url  : 'http://localhost:3000/profil' ,
+                data : {name: editname, _id: id},
+                dataType : "JSON",
+                success : function(data){
+                    location.reload(true);
 
-          $.ajax({
-              type : 'PUT',
-              url  : 'http://localhost:3000/profil' ,
-              data : {name: name, _id: id},
-              dataType : "JSON",
-              success : function(data){
+                },
+                error : function(data) {
+                    location.reload(true);
+                }
+            });
+            location.reload(true);
+        });
 
-              },
-              error : function(data) {
-                  alert('echec laaa');
-              }
-          });
+        $('.over').click(function (e) {
+            e.preventDefault();
+            var id = $('#myid').text();
+            var editname = $('#editName').val();
 
-      })
+            $.ajax({
+                type : 'PUT',
+                url  : 'http://localhost:3000/profil' ,
+                data : {name: editname, _id: id},
+                dataType : "JSON",
+                success : function(data){
+
+                },
+                error : function(data) {
+
+                }
+            });
+
+        })
 
 
 
