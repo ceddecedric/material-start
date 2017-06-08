@@ -59,14 +59,37 @@ exports.logout = function (req, res) {
 
 exports.people = function (req, res) {
     var returnResponse = function (obj) {
-        
-        res.render('people',{invit:obj});
+        var returnObj = function (ob) {
+
+              //res.render('people',{invit:obj, invitation:o});
+
+
+           /* models.User.find({_id:ob.idUsers}).sort({name:1}).select('name _id').execAsync()
+                .then(returnRespon) */
+  var donee = [];
+   ob.forEach(function (el) {
+       models.User.find({_id:el.idUsers}).sort({name:1}).select('name _id').execAsync()
+           .then(function (o) {
+              for(var i = 0; i < o.length; i++)
+              {
+                  donee.push(o[i]);
+              }
+              console.log(donee);
+           });
+
+   })
+
+            res.render('people',{invit:obj, invitation:donee});
+
+        }
+        models.InvitationTemp.find({idUserInvit:req.user._id}).execAsync()
+            .then(returnObj) ;
 
     };
 
 
-    models.InvitationTemp.count({idUserInvit:'"'+req.user._id+'"'})
-    .then(returnResponse);
+    models.InvitationTemp.count({idUserInvit:req.user._id})
+        .then(returnResponse);
 };
 
 exports.status = function (req, res) {
