@@ -97,6 +97,28 @@ exports.status = function (req, res) {
 
 };
 
+exports.profil = function (req, res) {
+    res.render('profil');
+};
+
+exports.Upprofil = function (req, res) {
+
+    var options = {_id: req.body._id};
+
+    var returnUpdateObject = function () {
+        models.User.findOneAsync(options)
+            .then(logLib.logContent);
+
+    }
+
+    delete req.body['_id'];
+
+    models.User.findOneAndUpdateAsync(options,req.body)
+        .then(returnUpdateObject);
+
+    res.redirect('/profil');
+};
+
 exports.index = function (req, res) {
     var returnResponse = function (obj) {
         res.render('people',{users: obj});
