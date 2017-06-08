@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/app/assets/ressource/myCss.css"/>
     <title>Qwirk</title>
     <script src="https://simplewebrtc.com/latest-v2.js"></script>
+    <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+
     <style>
           .volume {
         position: absolute;
@@ -95,6 +97,41 @@
     // you can name it anything
     webrtc.joinRoom('your awesome room name');
   });
+
+  // helper function to show the volume
+  function showVolume(el, volume) {
+      console.log('showVolume', volume, el);
+      if (!el) return;
+      if (volume < -45) volume = -45; // -45 to -20 is
+      if (volume > -20) volume = -20; // a good range
+      el.value = volume;
+  }
+
+  //peer
+  // var peer = new Peer({key: 't9i0q9889mnuq5mi'});
+
+  var peer = new Peer('pick-an-id', {key: 't9i0q9889mnuq5mi'}); 
+
+  // show the remote volume
+   var vol = document.createElement('meter');
+   vol.id = 'volume_' + peer.id;
+   vol.className = 'volume';
+   vol.min = -45;
+   vol.max = -20;
+   vol.low = -40;
+   vol.high = -25;
+   container.appendChild(vol);
+
+   webrtc.on('volumeChange', function (volume, treshold) {
+    showVolume(document.getElementById('localVolume'), volume);
+});
+
+webrtc.on('remoteVolumeChange', function (peer, volume) {
+    showVolume(document.getElementById('volume_' + peer.id), volume);
+});
+
+
+
 </script>
 
 <script src="/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>

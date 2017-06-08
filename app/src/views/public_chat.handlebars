@@ -20,6 +20,9 @@
       #messages li:nth-child(odd) { background: #eee; }
       #messages ol { background-color: #F0E68C; float: right; padding-right: 0.5cm; }
     </style>
+
+    <script src="https://simplewebrtc.com/latest-v2.js"></script>
+    <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
 </head>
 <body>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -76,11 +79,14 @@
       <ol id="messages"></ol>
       <ul id="messages"></ul>
 
+      <div id="remotes"></div>
+
       <form action="" onsubmit="datetime();">
           <div class="mdl-grid">
 
                   <div class="mdl-cell--9-col lead emoji-picker-container">
                       <input id="m" autocomplete="off" data-emojiable="true" required />
+                      <input id="file" type="file"/>
                   </div>
 
                   <div class="mdl-cell--3-col" style="margin-left: 10px;">
@@ -103,6 +109,7 @@
 <script src="/app/assets/lib/js/jquery.emojiarea.js"></script>
 <script src="/app/assets/lib/js/emoji-picker.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+
 <script>
     $(function() {
         // Initializes and creates emoji set from sprite sheet
@@ -155,6 +162,61 @@ function datetime() {
             AddZero(now.getMinutes())].join(":"),
         now.getHours() >= 12 ? "PM" : "AM"].join(" ");
 };
+
+// simplewebrtc files transfert
+
+var peer = new Peer('pick-an-id', {key: 't9i0q9889mnuq5mi'});
+
+var webrtc = new SimpleWebRTC({
+    // we don't do video
+    localVideoEl: '',
+    remoteVideosEl: '',
+    // dont ask for camera access
+    autoRequestMedia: false,
+    // dont negotiate media
+    receiveMedia: {
+        offerToReceiveAudio: 0,
+        offerToReceiveVideo: 0
+    }
+});
+
+// join without waiting for media
+webrtc.joinRoom('your awesome room name');
+
+// called when a peer is created
+webrtc.on('createdPeer', function (peer) {
+    console.log('createdPeer', peer);
+});
+
+// receiving an incoming filetransfer
+peer.on('fileTransfer', function (metadata, receiver) {
+    console.log('incoming filetransfer', metadata.name, metadata);
+    receiver.on('progress', function (bytesReceived) {
+        console.log('receive progress', bytesReceived, 'out of', metadata.size);
+    });
+    // get notified when file is done
+    receiver.on('receivedFile', function (file, metadata) {
+        console.log('received file', metadata.name, metadata.size);
+
+        // close the channel
+        receiver.channel.close();
+    });
+    filelist.appendChild(item);
+});
+
+// select a file
+var fileinput = document.createElement('input');
+fileinput.type = 'file';
+
+// send a file
+fileinput.addEventListener('change', function() {
+    fileinput.disabled = true;
+
+    var file = fileinput.files[0];
+    var sender = peer.sendFile(file);
+});
+
+
 
 </script>
 </body>
