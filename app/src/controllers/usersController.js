@@ -146,3 +146,7 @@ exports.Upstatus = function (req, res) {
 
 }
 
+exports.accepter = function (req, res) {
+
+};
+

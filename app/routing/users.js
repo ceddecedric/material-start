@@ -13,7 +13,9 @@ app.get('/people', ensureAuthenticated, users.people);
 app.get('/status',ensureAuthenticated, users.status);
 app.put('/status', users.Upstatus);
 app.get('/profil',ensureAuthenticated, users.profil);
-app.put('/profil', users.Upprofil);
+app.put('/profil',ensureAuthenticated, users.Upprofil);
+app.post('/accepter',ensureAuthenticated, users.accepter);
+
 
 function ensureAuthenticated (req, res, next) {
     if(req.isAuthenticated()){
