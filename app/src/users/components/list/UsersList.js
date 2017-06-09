@@ -2,9 +2,9 @@
 // have any specialized logic.
 
 export default {
-  name : 'usersList',
-  config : {
-    bindings         : {  users: '<', selected : '<', showDetails : '&onSelected' },
-    templateUrl      : 'src/users/components/list/UsersList.html'
-  }
+    name: 'usersList',
+    config: {
+        bindings: {users: '<', selected: '<', showDetails: '&onSelected'},
+        templateUrl: 'src/users/components/list/UsersList.html'
+    }
 };

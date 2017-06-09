@@ -5,8 +5,8 @@ var id = pow.createObjectId;
 fixtures.load({
     users: [
         {
-            "_id":id(),
-           "name":  "Kevin doh",
+            "_id": id(),
+            "name": "Kevin doh",
             "email": "kevindoh26@gmail.com",
             "status": "Dieu est fort",
             "profil": "none",
