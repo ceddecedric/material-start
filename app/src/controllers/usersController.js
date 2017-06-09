@@ -3,12 +3,12 @@ exports.inscription = function (req, res) {
 };
 
 exports.create = function (req, res) {
-   var name = req.body.name;
-   var email = req.body.email;
-   var password = req.body.password;
-   var confpass = req.body.confpass;
+    var name = req.body.name;
+    var email = req.body.email;
+    var password = req.body.password;
+    var confpass = req.body.confpass;
 
-  //validation
+    //validation
     req.checkBody('name', 'Name is required').notEmpty();
     req.checkBody('email', 'email is required').notEmpty();
     req.checkBody('email', 'email is not valid').isEmail();
@@ -17,21 +17,21 @@ exports.create = function (req, res) {
 
     var errors = req.validationErrors();
 
-    if(errors){
+    if (errors) {
         res.render('inscription', {
-            errors:errors
+            errors: errors
         });
-    }else {
-        bcrypt.genSalt(10, function(err, salt) {
-            bcrypt.hash(req.body.password, salt, function(err, hash) {
+    } else {
+        bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(req.body.password, salt, function (err, hash) {
                 req.body.password = hash;
                 var returnResponse = function (obj) {
                     req.flash('success_msg', 'You are now registered and can now login');
                     res.redirect('/login');
                 };
                 models.User(req.body).saveAsync()
-                    .then(logLib.logContent)
-                    .then(returnResponse);
+                        .then(logLib.logContent)
+                        .then(returnResponse);
 
             });
         });
@@ -61,35 +61,35 @@ exports.people = function (req, res) {
     var returnResponse = function (obj) {
         var returnObj = function (ob) {
 
-              //res.render('people',{invit:obj, invitation:o});
+            //res.render('people',{invit:obj, invitation:o});
 
 
-           /* models.User.find({_id:ob.idUsers}).sort({name:1}).select('name _id').execAsync()
-                .then(returnRespon) */
-  var donee = [];
-   ob.forEach(function (el) {
-       models.User.find({_id:el.idUsers}).sort({name:1}).select('name _id').execAsync()
-           .then(function (o) {
-              for(var i = 0; i < o.length; i++)
-              {
-                  donee.push(o[i]);
-              }
-              console.log(donee);
-           });
+            /* models.User.find({_id:ob.idUsers}).sort({name:1}).select('name _id').execAsync()
+             .then(returnRespon) */
+            var donee = [];
+            ob.forEach(function (el) {
+                models.User.find({_id: el.idUsers}).sort({name: 1}).select('name _id').execAsync()
+                        .then(function (o) {
+                            for (var i = 0; i < o.length; i++)
+                            {
+                                donee.push(o[i]);
+                            }
+                            console.log(donee);
+                        });
 
-   })
+            })
 
-            res.render('people',{invit:obj, invitation:donee});
+            res.render('people', {invit: obj, invitation: donee});
 
         }
-        models.InvitationTemp.find({idUserInvit:req.user._id}).execAsync()
-            .then(returnObj) ;
+        models.InvitationTemp.find({idUserInvit: req.user._id}).execAsync()
+                .then(returnObj);
 
     };
 
 
-    models.InvitationTemp.count({idUserInvit:req.user._id})
-        .then(returnResponse);
+    models.InvitationTemp.count({idUserInvit: req.user._id})
+            .then(returnResponse);
 };
 
 exports.status = function (req, res) {
@@ -107,25 +107,25 @@ exports.Upprofil = function (req, res) {
 
     var returnUpdateObject = function () {
         models.User.findOneAsync(options)
-            .then(logLib.logContent);
+                .then(logLib.logContent);
 
     }
 
     delete req.body['_id'];
 
-    models.User.findOneAndUpdateAsync(options,req.body)
-        .then(returnUpdateObject);
+    models.User.findOneAndUpdateAsync(options, req.body)
+            .then(returnUpdateObject);
 
     res.redirect('/profil');
 };
 
 exports.index = function (req, res) {
     var returnResponse = function (obj) {
-        res.render('people',{users: obj});
+        res.render('people', {users: obj});
     };
 
-    models.User.find().sort({name:1}).select('-_id').execAsync()
-    .then(returnResponse);
+    models.User.find().sort({name: 1}).select('-_id').execAsync()
+            .then(returnResponse);
 };
 
 
@@ -135,14 +135,14 @@ exports.Upstatus = function (req, res) {
 
     var returnUpdateObject = function () {
         models.User.findOneAsync(options)
-            .then(logLib.logContent);
+                .then(logLib.logContent);
 
     }
 
     delete req.body['_id'];
 
-    models.User.findOneAndUpdateAsync(options,req.body)
-        .then(returnUpdateObject);
+    models.User.findOneAndUpdateAsync(options, req.body)
+            .then(returnUpdateObject);
 
 }
 
