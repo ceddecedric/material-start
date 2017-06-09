@@ -4,4 +4,14 @@
     $('.button-collapse').sideNav();
 
   }); // end of document ready
-})(jQuery); // end of jQuery name space
+
+
+})(jQuery);
+
+$(document).ready(function() {
+    $( window ).resize(function() {
+        $( ".log" ).removeClass('log');
+    });
+
+});// end of jQuery name space
+

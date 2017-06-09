@@ -12,15 +12,12 @@ app.get('/logout', users.logout);
 app.get('/people', ensureAuthenticated, users.people);
 app.get('/status', ensureAuthenticated, users.status);
 app.put('/status', users.Upstatus);
-<<<<<<< HEAD
+
 app.get('/profil',ensureAuthenticated, users.profil);
 app.put('/profil',ensureAuthenticated, users.Upprofil);
 app.post('/accepter',ensureAuthenticated, users.accepter);
 
-=======
-app.get('/profil', ensureAuthenticated, users.profil);
-app.put('/profil', users.Upprofil);
->>>>>>> 8f519282b7fcb09fd1ba205ea9ed255e8764f3fb
+
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
