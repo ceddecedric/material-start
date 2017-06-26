@@ -16,6 +16,7 @@ app.put('/status', users.Upstatus);
 app.get('/profil',ensureAuthenticated, users.profil);
 app.put('/profil',ensureAuthenticated, users.Upprofil);
 app.post('/accepter',ensureAuthenticated, users.accepter);
+app.post('/refuser',ensureAuthenticated, users.refuser);
 
 
 
