@@ -100,7 +100,9 @@
             <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="bas">
                 <label class="mdl-menu__item" style="min-width: 400px;">invitations</label>
                 {{#if invit}}
-                    {{#each invitation}}
+
+                       {{#each invitation }}
+
                         <li class="mdl-menu__item" style="min-width: 400px;">
                             <div class="mdl-grid">
                                 <div class="mdl-cell--7-col over" style="padding-top: 15px; font-size: 50px;">
@@ -120,6 +122,7 @@
                             </div>
                         </li>
                         <hr>
+
                     {{/each}}
                 {{else}}
                     <li class="mdl-menu__item" style="min-width: 400px;">No invitation</li>
@@ -246,15 +249,29 @@
             url  : 'http://localhost:3000/accepter',
             data : {_id : id},
             success : function(data){
-
+                location.reload(true);
             },
             error : function(data) {
-                alert("echec");
+                location.reload(true);
             }
         });
+        location.reload(true);
     }
     function refuser(that) {
-        alert(that.id);
+        var id = that.id;
+
+        $.ajax({
+            type : 'POST',
+            url  : 'http://localhost:3000/refuser',
+            data : {_id : id},
+            success : function(data){
+                location.reload(true);
+            },
+            error : function(data) {
+                location.reload(true);
+            }
+        });
+        location.reload(true);
     }
 </script>
 </body>
