@@ -17,3 +17,19 @@ exports.index = function (req, res) {
         console.log('test');
     };
 };
+
+exports.creategroup = function (req, res) {
+
+    var returnResponse = function (obj) {
+        console.log(req.body.name);
+    };
+
+    var options = {name: req.body.name};
+
+    models.Groupe(req.body).saveAsync()
+                        .then(logLib.logContent)
+                        .then(returnResponse);
+
+
+    res.redirect('/private_chat');
+};

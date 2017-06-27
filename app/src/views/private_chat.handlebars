@@ -28,6 +28,9 @@
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">Private Chatroom</span>
             <div class="mdl-layout-spacer"></div>
+            <label class="mdl-button mdl-js-button mdl-button--icon  dialog-button1">
+                <i class="material-icons">group_add</i>
+            </label>
             <label class="mdl-button mdl-js-button mdl-button--icon  dialog-button">
                 <i class="material-icons">add</i>
             </label>
@@ -86,6 +89,35 @@
 
         </div>
     </dialog>
+    
+    <dialog id="dialog1" class="mdl-dialog">
+        <h3 class="mdl-dialog__title">Create group</h3>
+
+        <div class="mdl-dialog__content">
+            <div class="form_container center ">
+
+                <form method="post" action="">
+                    <fieldset name="formulaire" id="formulaire">
+
+                        <p>
+
+                        <div class="inputt mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" name="name" id="name" />
+                            <label class="mdl-textfield__label" for="name">Name of the group</label>
+                        </div>
+                        <br>
+                        <input id="login_button" type="submit" value="Create" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        </p>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button close" >Close</button>
+
+        </div>
+    </dialog>
+
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
       <header class="demo-drawer-header">
           <img src="/images/slide1.jpeg" class="demo-avatar">
@@ -170,9 +202,6 @@
 webrtc.on('remoteVolumeChange', function (peer, volume) {
     showVolume(document.getElementById('volume_' + peer.id), volume);
 });
-
-
-
 </script>
 
 <script src="/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
@@ -194,5 +223,42 @@ webrtc.on('remoteVolumeChange', function (peer, volume) {
                     dialog.close();
                 });
     }());
+            (function() {
+        'use strict';
+        var dialogButton = document.querySelector('.dialog-button1');
+        var dialog = document.querySelector('#dialog1');
+        if (! dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialogButton.addEventListener('click', function() {
+            dialog.showModal();
+        });
+        dialog.querySelector('button:not([disabled])')
+                .addEventListener('click', function() {
+                    dialog.close();
+                });
+    }());
 </script>
+
+<script type="text/javascript">
+    function group(that) {
+        var name = that.name;
+
+        $.ajax({
+            type : 'POST',
+            url  : 'http://localhost:3000/private_chat',
+            data : {name : name},
+            success : function(data){
+
+            },
+            error : function(data) {
+                alert("echec");
+            }
+        });
+    }
+    function refuser(that) {
+        alert(that.id);
+    }
+</script>
+
 </body>
