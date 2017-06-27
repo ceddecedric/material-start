@@ -122,7 +122,7 @@ io.on('connection', function(socket){
         var option = {messageText: msg};
         models.MessageGroupes(option).saveAsync()
           .then(logLib.logContent);
-        console.log('message: ' + msg);
+
     });
 });
 

@@ -69,7 +69,7 @@
 
                     <div class="inputt mdl-textfield mdl-js-textfield">
                         <input class="mdl-textfield__input" type="email" name="email" id="email" />
-                        <label class="mdl-textfield__label" for="email">Edit your status here...</label>
+                        <label class="mdl-textfield__label" for="email">Add an invitation email...</label>
                     </div>
                     <br>
                     <input id="login_button" type="submit" value="Ajouter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
@@ -199,21 +199,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="mdl-data-table__cell--non-numeric">Ebobolywood<span>status</span></td>
-                    <td>25</td>
+                {{#each avoirami}}
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">{{name}}<span>status</span></td>
+                        <td>{{email}}</td>
 
-                </tr>
-                <tr>
-                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-                    <td>50</td>
+                    </tr>
+                {{/each}}
 
-                </tr>
-                <tr>
-                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-                    <td>10</td>
 
-                </tr>
                 </tbody>
             </table>
         </div>
