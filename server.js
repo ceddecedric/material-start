@@ -113,6 +113,8 @@ passport.use(new LocalStrategy(
 ));
 
 io.on('connection', function(socket){
+    // var hs = socket.handshake;
+    // users[hs]
     console.log('a user connected');
     socket.on('disconnect', function(){
         console.log(('user disconnected'));
@@ -130,3 +132,18 @@ io.on('connection', function(socket){
 http.listen(3000, () => {
     console.log('http://localhost:3000');
 });
+
+
+
+//
+// io.sockets.on('connection', function (socket) {
+//     // get the handshake and the session object
+//     var hs = socket.handshake;
+//     users[hs.session.username] = socket.id; // connected user with its socket.id
+//     clients[socket.id] = socket; // add the client data to the hash
+//     ...
+//     socket.on('disconnect', function () {
+//         delete clients[socket.id]; // remove the client from the array
+//         delete users[hs.session.username]; // remove connected user & socket.id
+//     });
+// }
