@@ -67,14 +67,17 @@ exports.people = function (req, res) {
             /* models.User.find({_id:ob.idUsers}).sort({name:1}).select('name _id').execAsync()
              .then(returnRespon) */
             var donee = [];
+            var myid = [];
             ob.forEach(function (el) {
+                myid.push(el._id);
+
                 models.User.find({_id: el.idUsers}).sort({name: 1}).select('name _id').execAsync()
                         .then(function (o) {
                             for (var i = 0; i < o.length; i++)
                             {
                                 donee.push(o[i]);
                             }
-                            console.log(donee);
+
                         });
 
             })
@@ -147,6 +150,35 @@ exports.Upstatus = function (req, res) {
 }
 
 exports.accepter = function (req, res) {
+
+    var ami = req.body._id;
+    var userconnect = req.user._id;
+
+    var returnResponse = function () {
+        var foundanddelete = function () {
+            var deleteOne = function (obj) {
+                models.InvitationTemp.findOneAndRemoveAsync({_id: obj._id});
+            }
+            models.InvitationTemp.findOneAsync({idUsers: ami,idUserInvit: req.user._id})
+                .then(deleteOne);
+        }
+        models.AvoirAmi({idUser: ami, idAmis: userconnect}).saveAsync()
+            .then(foundanddelete);
+    }
+
+    models.AvoirAmi({idUser: req.user._id, idAmis: req.body._id}).saveAsync()
+        .then(returnResponse);
+};
+
+exports.refuser = function (req, res) {
+
+    var ami = req.body._id;
+
+            var deleteOne = function (obj) {
+                models.InvitationTemp.findOneAndRemoveAsync({_id: obj._id});
+            }
+            models.InvitationTemp.findOneAsync({idUsers: ami,idUserInvit: req.user._id})
+                .then(deleteOne);
 
 };
 
