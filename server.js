@@ -112,9 +112,12 @@ passport.use(new LocalStrategy(
     }
 ));
 
+utilisateur = [];
+
 io.on('connection', function(socket){
-    // var hs = socket.handshake;
-    // users[hs]
+
+    // utilisateur.push(socket.id);
+
     console.log('a user connected');
     socket.on('disconnect', function(){
         console.log(('user disconnected'));

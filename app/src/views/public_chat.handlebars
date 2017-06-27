@@ -137,44 +137,21 @@
     ga('send', 'pageview');
 </script>
 <script>
+
   $(function () {
     var socket = io();
+    var id = socket.id;
     $('form').submit(function(){
       socket.emit('chat message', $('#m').val());
-//      alert(socket.id());
       $('#m').val('');
       return false;
     });
     socket.on('chat message', function(msg){
-      var author = $('#author').text();
-//      $('#messages').append($('<ol>').text(strDateTime)).append($('<li>').text(author+': '+msg));
-              $('#messages').append($('<span>').text(strDateTime)).append($('<li class="speech">').text(author+': '+msg));
-
+            var author = $('#author').text();
+            $('#messages').append($('<span>').text(strDateTime)).append($('<li class="speech">').text(author+': '+msg));
+            console.log('Vous etes deja expediteur');
     });
   });
-
-
-
-  io.sockets.socket(id).emit('hello');
-
-  io.sockets.on('connection', function (socket) {
-      // get the handshake and the session object
-      var hs = socket.handshake;
-      users[hs.session.username] = socket.id; // connected user with its socket.id
-      clients[socket.id] = socket; // add the client data to the hash
-      ...
-      socket.on('disconnect', function () {
-          delete clients[socket.id]; // remove the client from the array
-          delete users[hs.session.username]; // remove connected user & socket.id
-      });
-  }
-
-  // we want at some point to send a message to user 'alex'
-  if (users['alex']) {
-      // we get the socket.id for the user alex
-      // and with that we can sent him a message using his socket (stored in clients)
-      clients[users['alex']].emit("Hello Alex, how've you been");
-  }
 
 //Pad given value to the left with "0"
 function AddZero(num) {
@@ -243,8 +220,6 @@ fileinput.addEventListener('change', function() {
     var file = fileinput.files[0];
     var sender = peer.sendFile(file);
 });
-
-
 
 </script>
 </body>
