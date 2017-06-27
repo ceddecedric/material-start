@@ -82,7 +82,25 @@ exports.people = function (req, res) {
 
             })
 
-            res.render('people', {invit: obj, invitation: donee});
+            models.AvoirAmi.find({idUser: req.user._id}).sort({name: 1}).select('_id idAmis').execAsync()
+                .then(function (objet) {
+                    var amis = [];
+
+                    objet.forEach(function (objects) {
+                        models.User.find({_id: objects.idAmis}).sort({name: 1}).select('name email _id').execAsync()
+                            .then(function (elements) {
+                                for (var i = 0; i < elements.length; i++)
+                                {
+                                    amis.push(elements[i]);
+                                }
+                                console.log(elements);
+                            });
+                    });
+
+                    res.render('people', {invit: obj, invitation: donee, avoirami: amis});
+                })
+
+
 
         }
         models.InvitationTemp.find({idUserInvit: req.user._id}).execAsync()
