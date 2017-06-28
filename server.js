@@ -118,6 +118,7 @@ io.on('connection', function(socket){
 
     // utilisateur.push(socket.id);
 
+    console.log('messgae 1 socket io')
     console.log('a user connected');
     socket.on('disconnect', function(){
         console.log(('user disconnected'));
